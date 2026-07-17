@@ -65,7 +65,6 @@ model Chunk {
 
   document Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
 
-  // Note: the `embedding vector(768)` column is added via raw SQL
-  // in Lesson 6, since Prisma doesn't natively support pgvector's
-  // custom column type yet.
+  // embedding vector(768) — managed via raw SQL migration, not Prisma
+  @@map("Chunk")
 }

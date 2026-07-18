@@ -28,9 +28,12 @@
     "@prisma/client": "^7.8.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
+    "cloudinary": "^2.10.0",
+    "multer": "^2.2.0",
     "pgp": "^0.1.0",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "streamifier": "^0.1.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
@@ -45,9 +48,11 @@
     "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.14",
+    "@types/multer": "^2.2.0",
     "@types/node": "^22.10.7",
     "@types/passport-jwt": "^4.0.1",
     "@types/pg": "^8.20.0",
+    "@types/streamifier": "^0.1.2",
     "@types/supertest": "^6.0.2",
     "bcrypt": "^6.0.0",
     "dotenv": "^17.4.2",

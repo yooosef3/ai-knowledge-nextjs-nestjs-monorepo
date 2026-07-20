@@ -3,16 +3,17 @@ import { PrismaService } from '../prisma/prisma.service';
 import { UploadApiResponse, v2 as CloudinaryClient } from 'cloudinary';
 import * as streamifier from 'streamifier';
 import { MulterFile } from './multer-file.type';
+import { TextExtractionService } from './text-extraction.service';
 
 @Injectable()
 export class DocumentsService {
   constructor(
     private prisma: PrismaService,
+    private textExtraction: TextExtractionService,
     @Inject('CLOUDINARY') private cloudinary: typeof CloudinaryClient,
   ) {}
 
   async uploadDocument(file: MulterFile, workspaceId: string, userId: string) {
-    // Verify the user actually belongs to this workspace before touching storage
     const membership = await this.prisma.workspaceMember.findFirst({
       where: { userId, workspaceId },
     });
@@ -22,7 +23,7 @@ export class DocumentsService {
 
     const uploadResult = await this.uploadToCloudinary(file);
 
-    return this.prisma.document.create({
+    const document = await this.prisma.document.create({
       data: {
         title: file.originalname,
         fileUrl: uploadResult.secure_url,
@@ -30,6 +31,14 @@ export class DocumentsService {
         uploadedById: userId,
       },
     });
+
+    // Extract text right away — Lesson 10 will chunk + embed it
+    const extractedText = await this.textExtraction.extractText(
+      uploadResult.secure_url,
+      file.originalname,
+    );
+
+    return { ...document, extractedTextPreview: extractedText.slice(0, 200) };
   }
 
   private uploadToCloudinary(file: MulterFile): Promise<UploadApiResponse> {

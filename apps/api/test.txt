@@ -1,0 +1,1 @@
+﻿RAG stands for Retrieval Augmented Generation. It combines a retrieval step, which searches a vector database for relevant text chunks, with a generation step, where a language model produces an answer grounded in that retrieved context.

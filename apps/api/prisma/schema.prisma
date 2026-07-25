@@ -62,9 +62,9 @@ model Chunk {
   content    String
   documentId String
   createdAt  DateTime @default(now())
+  embedding  Unsupported("vector(768)")?
 
   document Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
 
-  // embedding vector(768) — managed via raw SQL migration, not Prisma
   @@map("Chunk")
 }

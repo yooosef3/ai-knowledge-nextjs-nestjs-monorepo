@@ -4,12 +4,16 @@ import { UploadApiResponse, v2 as CloudinaryClient } from 'cloudinary';
 import * as streamifier from 'streamifier';
 import { MulterFile } from './multer-file.type';
 import { TextExtractionService } from './text-extraction.service';
+import { ChunkingService } from './chunking.service';
+import { EmbeddingsService } from '../embeddings/embeddings.service';
 
 @Injectable()
 export class DocumentsService {
   constructor(
     private prisma: PrismaService,
     private textExtraction: TextExtractionService,
+    private chunking: ChunkingService,
+    private embeddings: EmbeddingsService,
     @Inject('CLOUDINARY') private cloudinary: typeof CloudinaryClient,
   ) {}
 
@@ -32,13 +36,28 @@ export class DocumentsService {
       },
     });
 
-    // Extract text right away — Lesson 10 will chunk + embed it
     const extractedText = await this.textExtraction.extractText(
       uploadResult.secure_url,
       file.originalname,
     );
 
-    return { ...document, extractedTextPreview: extractedText.slice(0, 200) };
+    const textChunks = this.chunking.chunkText(extractedText);
+    const chunkEmbeddings = await this.embeddings.embedTexts(textChunks);
+
+    for (let i = 0; i < textChunks.length; i++) {
+      const chunk = await this.prisma.chunk.create({
+        data: { content: textChunks[i], documentId: document.id },
+      });
+
+      const embeddingLiteral = `[${chunkEmbeddings[i].join(',')}]`;
+      await this.prisma.$executeRawUnsafe(
+        'UPDATE "Chunk" SET embedding = $1::vector WHERE id = $2',
+        embeddingLiteral,
+        chunk.id,
+      );
+    }
+
+    return { ...document, chunkCount: textChunks.length };
   }
 
   private uploadToCloudinary(file: MulterFile): Promise<UploadApiResponse> {

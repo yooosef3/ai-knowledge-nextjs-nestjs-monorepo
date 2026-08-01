@@ -1,0 +1,9 @@
+{
+    "AppShell": { "title": "AI Knowledge Base" },
+    "ChatTest": {
+      "tokenNote": "Temporary: paste a JWT from /auth/login. Real auth arrives in Lesson 20.",
+      "tokenPlaceholder": "Paste JWT token here",
+      "questionPlaceholder": "Ask a question...",
+      "send": "Send"
+    }
+  }

@@ -1,0 +1,9 @@
+{
+    "AppShell": { "title": "پایگاه دانش هوش مصنوعی" },
+    "ChatTest": {
+      "tokenNote": "موقت: یک توکن از /auth/login وارد کنید. احراز هویت واقعی در درس ۲۰ اضافه می‌شود.",
+      "tokenPlaceholder": "توکن JWT را اینجا وارد کنید",
+      "questionPlaceholder": "سوال خود را بپرسید...",
+      "send": "ارسال"
+    }
+  }

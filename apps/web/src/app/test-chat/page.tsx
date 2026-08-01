@@ -2,12 +2,10 @@
 
 import { useChat } from "@ai-sdk/react";
 import { useRef, useState } from "react";
-import { NestChatTransport } from "../lib/nest-chat-transport";
+import { NestChatTransport } from "../../lib/nest-chat-transport";
 
 export default function ChatTestPage() {
-  const [token, setToken] = useState(
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4YTNkOGU3MC0yMjhhLTRiMTQtYWY4Zi0xZGM5N2JmN2E4MGIiLCJlbWFpbCI6InRlc3Q1NDJAZXhhbXBsZS5jb20iLCJ3b3Jrc3BhY2VJZCI6ImFlNWRkMzAxLWU2Y2YtNGUzNC1iZTIzLTM5Y2JjYzUwOTQxOCIsImlhdCI6MTc4NTQ1MDA4NSwiZXhwIjoxNzg2MDU0ODg1fQ.xXd2ZouyFeE--awGwpELBySmnusbwt_2EDXU03cazQ4",
-  );
+  const [token, setToken] = useState("");
   const tokenRef = useRef("");
   tokenRef.current = token;
 

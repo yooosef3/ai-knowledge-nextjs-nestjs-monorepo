@@ -5,6 +5,7 @@ import { routing } from '@/i18n/routing';
 import ThemeRegistry from '@/theme/ThemeRegistry';
 import AppShell from '@/components/AppShell';
 import '../globals.css';
+import QueryProvider from '@/components/QueryProvider';
 
 export const metadata: Metadata = {
   title: 'AI Knowledge Base',
@@ -30,9 +31,11 @@ export default async function LocaleLayout({
     <html lang={locale} dir={direction}>
       <body>
         <NextIntlClientProvider locale={locale}>
-          <ThemeRegistry direction={direction}>
-            <AppShell>{children}</AppShell>
-          </ThemeRegistry>
+        <QueryProvider>
+            <ThemeRegistry direction={direction}>
+              <AppShell>{children}</AppShell>
+            </ThemeRegistry>
+          </QueryProvider>
         </NextIntlClientProvider>
       </body>
     </html>

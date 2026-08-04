@@ -59,3 +59,30 @@ export const api = {
     return apiFetch<Document>('/documents/upload', { method: 'POST', body: formData, token });
   },
 };
+
+export const authApi = {
+  login: (email: string, password: string) =>
+    fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    }).then(async (res) => {
+      if (!res.ok) throw new Error((await res.json()).message || 'Login failed');
+      return res.json();
+    }),
+
+  register: (email: string, password: string, name?: string) =>
+    fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password, name }),
+    }).then(async (res) => {
+      if (!res.ok) throw new Error((await res.json()).message || 'Registration failed');
+      return res.json();
+    }),
+
+  me: () =>
+    fetch('/api/auth/me').then((res) => (res.ok ? res.json() : null)),
+
+  logout: () => fetch('/api/auth/logout', { method: 'POST' }),
+};

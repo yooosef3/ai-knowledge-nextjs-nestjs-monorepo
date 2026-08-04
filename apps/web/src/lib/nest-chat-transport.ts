@@ -3,20 +3,15 @@ import type { ChatTransport, UIMessage, UIMessageChunk } from "ai";
 export class NestChatTransport implements ChatTransport<UIMessage> {
   constructor(private getToken: () => string) {}
 
-  async sendMessages({
-    messages,
-  }: {
-    messages: UIMessage[];
-  }): Promise<ReadableStream<UIMessageChunk>> {
-    const lastMessage = messages[messages.length - 1];
-    const question =
-      lastMessage.parts.find((p) => p.type === "text")?.text ?? "";
+ async sendMessages({ messages }: { messages: UIMessage[] }): Promise<ReadableStream<UIMessageChunk>> {
+  const lastMessage = messages[messages.length - 1];
+  const question = lastMessage.parts.find((p) => p.type === 'text')?.text ?? '';
 
-    const response = await fetch("/api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ question, token: this.getToken() }),
-    });
+  const response = await fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ question }), 
+  });
 
     if (!response.body) throw new Error("No response body from /api/chat");
 

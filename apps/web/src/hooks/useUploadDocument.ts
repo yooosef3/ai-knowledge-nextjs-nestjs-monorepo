@@ -1,13 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { api } from '@/lib/api-client';
+import { documentsApi } from '@/lib/api-client';
 
-export function useUploadDocument(token: string, workspaceId: string) {
+export function useUploadDocument() {
   const queryClient = useQueryClient();
-
   return useMutation({
-    mutationFn: (file: File) => api.uploadDocument(file, workspaceId, token),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['documents', token] });
-    },
+    mutationFn: (file: File) => documentsApi.upload(file),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['documents'] }),
   });
 }

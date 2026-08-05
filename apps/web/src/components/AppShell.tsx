@@ -24,7 +24,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             {t('title')}
           </Typography>
           {user ? (
-            <Button color="inherit" onClick={() => logout.mutate()}>Log out ({user.email})</Button>
+            <>
+              <Button color="inherit" href="/documents">Documents</Button>
+              <Button color="inherit" onClick={() => logout.mutate()}>Log out ({user.email})</Button>
+            </>
           ) : (
             <Button color="inherit" href="/login">Log in</Button>
           )}

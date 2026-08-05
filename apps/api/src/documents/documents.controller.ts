@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  UseGuards,
-  UseInterceptors,
-  UploadedFile,
-  Body,
-} from '@nestjs/common';
+import { Controller, Get, Post, UseGuards, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
@@ -22,10 +14,9 @@ export class DocumentsController {
   @UseInterceptors(FileInterceptor('file'))
   upload(
     @UploadedFile() file: MulterFile,
-    @Body('workspaceId') workspaceId: string,
-    @CurrentUser() user: { userId: string },
+    @CurrentUser() user: { userId: string; workspaceId?: string },
   ) {
-    return this.documentsService.uploadDocument(file, workspaceId, user.userId);
+    return this.documentsService.uploadDocument(file, user.workspaceId!, user.userId);
   }
 
   @Get()

@@ -49,14 +49,22 @@ export const api = {
 
   me: (token: string) =>
     apiFetch<{ userId: string; email: string; workspaceId?: string }>('/auth/me', { token }),
+};
 
-  getDocuments: (token: string) => apiFetch<Document[]>('/documents', { token }),
+export const documentsApi = {
+  getAll: () =>
+    fetch('/api/documents').then(async (res) => {
+      if (!res.ok) throw new Error((await res.json()).message || 'Failed to load documents');
+      return res.json() as Promise<Document[]>;
+    }),
 
-  uploadDocument: (file: File, workspaceId: string, token: string) => {
+  upload: (file: File) => {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('workspaceId', workspaceId);
-    return apiFetch<Document>('/documents/upload', { method: 'POST', body: formData, token });
+    return fetch('/api/documents/upload', { method: 'POST', body: formData }).then(async (res) => {
+      if (!res.ok) throw new Error((await res.json()).message || 'Upload failed');
+      return res.json() as Promise<Document>;
+    });
   },
 };
 

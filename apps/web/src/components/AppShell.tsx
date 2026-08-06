@@ -10,6 +10,7 @@ import LanguageSwitcher from './LanguageSwitcher';
 import Button from '@mui/material/Button';
 import { useSession } from '@/hooks/useSession';
 import { useLogout } from '@/hooks/useLogout';
+import WorkspaceSwitcher from './WorkspaceSwitcher';
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const t = useTranslations('AppShell');
@@ -25,8 +26,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           </Typography>
           {user ? (
             <>
+              <WorkspaceSwitcher />
               <Button color="inherit" href="/chat">Chat</Button>
               <Button color="inherit" href="/documents">Documents</Button>
+              <Button color="inherit" href="/workspace">Workspace</Button>
               <Button color="inherit" onClick={() => logout.mutate()}>Log out ({user.email})</Button>
             </>
           ) : (

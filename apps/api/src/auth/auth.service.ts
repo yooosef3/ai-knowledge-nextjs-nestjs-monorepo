@@ -68,4 +68,8 @@ export class AuthService {
     const payload = { sub: userId, email, workspaceId };
     return { access_token: this.jwtService.sign(payload) };
   }
+
+  issueTokenForWorkspace(userId: string, email: string, workspaceId: string) {
+    return this.signToken(userId, email, workspaceId);
+  }
 }

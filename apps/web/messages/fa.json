@@ -1,9 +1,61 @@
 {
-    "AppShell": { "title": "پایگاه دانش هوش مصنوعی" },
-    "ChatTest": {
-      "tokenNote": "موقت: یک توکن از /auth/login وارد کنید. احراز هویت واقعی در درس ۲۰ اضافه می‌شود.",
-      "tokenPlaceholder": "توکن JWT را اینجا وارد کنید",
-      "questionPlaceholder": "سوال خود را بپرسید...",
-      "send": "ارسال"
-    }
+  "AppShell": {
+    "title": "پایگاه دانش هوش مصنوعی",
+    "chat": "گفتگو",
+    "documents": "اسناد",
+    "workspace": "فضای کاری",
+    "logout": "خروج",
+    "login": "ورود"
+  },
+  "Home": {
+    "apiStatus": "وضعیت API: {status}"
+  },
+  "Chat": {
+    "title": "گفتگو",
+    "empty": "درباره اسناد بارگذاری‌شده سؤال بپرسید.",
+    "placeholder": "سؤال خود را بنویسید…",
+    "thinking": "در حال فکر کردن…"
+  },
+  "Documents": {
+    "title": "اسناد",
+    "dropTitle": "فایل را اینجا بکشید یا برای انتخاب کلیک کنید",
+    "dropHint": "PDF، DOCX یا TXT — حداکثر ۱۰ مگابایت",
+    "uploading": "در حال بارگذاری و پردازش…",
+    "empty": "هنوز سندی نیست — برای شروع یکی بارگذاری کنید.",
+    "unsupportedType": "نوع فایل پشتیبانی نمی‌شود: .{extension}. مجاز: {accepted}"
+  },
+  "Workspace": {
+    "memberCount": "{count, plural, one {# عضو} other {# عضو}}",
+    "inviteTitle": "دعوت عضو",
+    "emailPlaceholder": "colleague@example.com",
+    "invite": "دعوت",
+    "inviteSuccess": "عضو اضافه شد.",
+    "invalidEmail": "ایمیل معتبر وارد کنید"
+  },
+  "Login": {
+    "title": "خوش آمدید",
+    "subtitle": "وارد پایگاه دانش خود شوید",
+    "email": "ایمیل",
+    "password": "رمز عبور",
+    "submit": "ورود",
+    "submitting": "در حال ورود…",
+    "noAccount": "حساب ندارید؟",
+    "createOne": "ثبت‌نام کنید"
+  },
+  "Register": {
+    "title": "ساخت حساب",
+    "subtitle": "پایگاه دانش خود را بسازید",
+    "name": "نام",
+    "email": "ایمیل",
+    "password": "رمز عبور",
+    "submit": "ساخت حساب",
+    "submitting": "در حال ساخت حساب…",
+    "hasAccount": "قبلاً حساب دارید؟",
+    "logIn": "ورود"
+  },
+  "Validation": {
+    "email": "ایمیل معتبر وارد کنید",
+    "passwordRequired": "رمز عبور الزامی است",
+    "passwordMin": "رمز عبور باید حداقل ۸ کاراکتر باشد"
   }
+}

@@ -44,7 +44,9 @@ export class ChatController {
         res.write(`data: ${JSON.stringify({ token })}\n\n`);
       });
       res.write('data: [DONE]\n\n');
-    } catch {
+    } catch (err) {
+      // Surface the real failure in API logs — the client still gets a generic SSE error.
+      console.error('[chat/ask-stream] failed:', err);
       res.write(`data: ${JSON.stringify({ error: 'Something went wrong generating a response' })}\n\n`);
     } finally {
       res.end();

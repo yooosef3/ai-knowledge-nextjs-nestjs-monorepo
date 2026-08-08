@@ -2,29 +2,49 @@
 
 import { useLocale } from 'next-intl';
 import { useRouter, usePathname } from 'next/navigation';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 export default function LanguageSwitcher() {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
 
-  const switchLocale = (newLocale: string) => {
+  const switchLocale = (_: React.MouseEvent<HTMLElement>, newLocale: string | null) => {
+    if (!newLocale || newLocale === locale) return;
     const segments = pathname.split('/');
-    segments[1] = newLocale; // segments[0] is '' from the leading slash
+    segments[1] = newLocale;
     router.push(segments.join('/'));
   };
 
   return (
-    <Select
-      value={locale}
-      onChange={(e) => switchLocale(e.target.value)}
+    <ToggleButtonGroup
+      exclusive
       size="small"
-      sx={{ color: 'inherit', '.MuiSvgIcon-root': { color: 'inherit' } }}
+      value={locale}
+      onChange={switchLocale}
+      aria-label="language"
+      sx={{
+        bgcolor: 'rgba(26, 36, 33, 0.04)',
+        borderRadius: 2,
+        '& .MuiToggleButton-root': {
+          border: 0,
+          px: 1.25,
+          py: 0.4,
+          fontSize: 12,
+          fontWeight: 700,
+          color: 'text.secondary',
+          '&.Mui-selected': {
+            bgcolor: 'background.paper',
+            color: 'primary.main',
+            boxShadow: '0 1px 3px rgba(26, 36, 33, 0.08)',
+            '&:hover': { bgcolor: 'background.paper' },
+          },
+        },
+      }}
     >
-      <MenuItem value="en">EN</MenuItem>
-      <MenuItem value="fa">فا</MenuItem>
-    </Select>
+      <ToggleButton value="en">EN</ToggleButton>
+      <ToggleButton value="fa">فا</ToggleButton>
+    </ToggleButtonGroup>
   );
 }

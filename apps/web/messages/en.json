@@ -1,9 +1,61 @@
 {
-    "AppShell": { "title": "AI Knowledge Base" },
-    "ChatTest": {
-      "tokenNote": "Temporary: paste a JWT from /auth/login. Real auth arrives in Lesson 20.",
-      "tokenPlaceholder": "Paste JWT token here",
-      "questionPlaceholder": "Ask a question...",
-      "send": "Send"
-    }
+  "AppShell": {
+    "title": "AI Knowledge Base",
+    "chat": "Chat",
+    "documents": "Documents",
+    "workspace": "Workspace",
+    "logout": "Log out",
+    "login": "Log in"
+  },
+  "Home": {
+    "apiStatus": "API status: {status}"
+  },
+  "Chat": {
+    "title": "Chat",
+    "empty": "Ask a question about your uploaded documents.",
+    "placeholder": "Ask a question…",
+    "thinking": "Thinking…"
+  },
+  "Documents": {
+    "title": "Documents",
+    "dropTitle": "Drag a file here, or click to browse",
+    "dropHint": "PDF, DOCX, or TXT — up to 10MB",
+    "uploading": "Uploading and processing…",
+    "empty": "No documents yet — upload one above to get started.",
+    "unsupportedType": "Unsupported file type: .{extension}. Accepted: {accepted}"
+  },
+  "Workspace": {
+    "memberCount": "{count, plural, one {# member} other {# members}}",
+    "inviteTitle": "Invite a member",
+    "emailPlaceholder": "colleague@example.com",
+    "invite": "Invite",
+    "inviteSuccess": "Member added.",
+    "invalidEmail": "Enter a valid email"
+  },
+  "Login": {
+    "title": "Welcome back",
+    "subtitle": "Log in to your knowledge base",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Log in",
+    "submitting": "Logging in…",
+    "noAccount": "No account?",
+    "createOne": "Create one"
+  },
+  "Register": {
+    "title": "Create an account",
+    "subtitle": "Start building your knowledge base",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Create account",
+    "submitting": "Creating account…",
+    "hasAccount": "Already have an account?",
+    "logIn": "Log in"
+  },
+  "Validation": {
+    "email": "Enter a valid email",
+    "passwordRequired": "Password is required",
+    "passwordMin": "Password must be at least 8 characters"
   }
+}

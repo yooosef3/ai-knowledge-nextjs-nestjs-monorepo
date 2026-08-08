@@ -4,6 +4,10 @@ import axios from 'axios';
 import { ChatPrompt } from './prompt.service';
 
 const CHAT_MODEL = 'llama3.2';
+/** Cold model loads + long answers often exceed 60s on local Ollama. */
+const GENERATE_TIMEOUT_MS = 180_000;
+/** Streaming must not die mid-response; 0 disables axios request timeout. */
+const STREAM_TIMEOUT_MS = 0;
 
 @Injectable()
 export class GenerationService {
@@ -25,7 +29,7 @@ export class GenerationService {
         ],
         stream: false,
       },
-      { timeout: 60000 },
+      { timeout: GENERATE_TIMEOUT_MS },
     );
 
     const answer = response.data?.message?.content;
@@ -49,7 +53,7 @@ export class GenerationService {
         ],
         stream: true,
       },
-      { responseType: 'stream', timeout: 60000 },
+      { responseType: 'stream', timeout: STREAM_TIMEOUT_MS },
     );
 
     return new Promise((resolve, reject) => {
@@ -66,6 +70,9 @@ export class GenerationService {
             const parsed = JSON.parse(line);
             if (parsed.message?.content) {
               onToken(parsed.message.content);
+            }
+            if (parsed.error) {
+              reject(new Error(String(parsed.error)));
             }
           } catch {
             // an incomplete JSON fragment split across chunks — safe to skip
